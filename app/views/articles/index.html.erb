@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crawler - Crawl</title>
+    <title>Web Crawler</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,6 +26,34 @@
             margin-top: 0;
             margin-bottom: 20px;
             color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            margin-top: 20px;
         }
 
         .error-message {
@@ -54,8 +82,16 @@
 </head>
 <body>
     <div class="container">
-        <h1>Crawler - Crawl</h1>
+        <h1>Web Crawler</h1>
+        <%= form_tag(root_path, method: :get) do %>
+            <%= text_field_tag :url, nil, placeholder: 'Enter URL to crawl' %>
+            <%= submit_tag 'Crawl' %>
+        <% end %>
         
+        <% if flash[:error] %>
+            <p class="error-message"><%= flash[:error] %></p>
+        <% end %>
+
         <% if @sitemap.present? %>
             <div class="sitemap">
                 <h3>Sitemap</h3>
@@ -67,10 +103,6 @@
                     </div>
                 <% end %>
             </div>
-        <% end %>
-
-        <% if flash[:error] %>
-            <p class="error-message"><%= flash[:error] %></p>
         <% end %>
     </div>
 </body>

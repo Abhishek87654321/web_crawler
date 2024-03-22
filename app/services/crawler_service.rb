@@ -19,7 +19,7 @@ class CrawlerService
   def crawl_page(url)
     return if @pages[url]
 
-    html = open(url)
+    html = URI.open(url)
     doc = Nokogiri::HTML(html)
 
     assets = extract_assets(doc)
